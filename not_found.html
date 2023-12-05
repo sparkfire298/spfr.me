@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>sparkfire298</title>
+    <link rel="stylesheet" href="/style.css">
+    <style> body { height: 95vh; }</style>
+    <link rel="icon" type="image/x-icon" href="/logos/sparkfire298.png">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Not found</h1>
+        <p>The resource you requested doesn't exist.</p>
+        <button disabled onclick="history.back();" id="b">Go back</button>
+        <button disabled onclick="window.location.href = '/'" id="h">Go home</button>
+        <hr>
+        <h3>If you think this is a mistake, <a href="https://sparkfire298.xyz/contact" style="color: white;">let me
+                know!</a></h3>
+    </div>
+    <script>
+        // This is for people without JavaScript; if the button takes forever to load, your device is fuckin slow lmao
+        document.getElementById("b").disabled = false;
+        document.getElementById("h").disabled = false;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clock - spfr.me</title>
+    <link href="https://spfr.me/style.css" rel="stylesheet">
+    <style>
+        body {
+            height: 95vh;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <noscript>You need to have JavaScript enabled.<br>It's virtually impossible to use a web clock without JavaScript.</noscript>
+        <h1 id="time" style="font-size: 40px;"></h1>
+        <p id="date"></p>
+    </div>
+    <script>
+        function ut() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var apm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            var timeString = hours + ':' + minutes + ':' + seconds + ' ' + apm;
+            document.getElementById('time').innerHTML = timeString;
+            console.log('Updated time')
+        }
+
+        function ud() {
+            var now = new Date();
+            var month = now.toLocaleString('default', { month: 'long' });
+            var day = now.getDate();
+            var year = now.getFullYear();
+            var dateString = day + ' ' + month + ' ' + year;
+            document.getElementById('date').innerHTML = dateString;
+            console.log('Updated date')
+        }
+
+        setInterval(ut, 600);
+        setInterval(ud, 1600)
+        ud();
+        ut();
+    </script>
+</body>
+
+</html>
+
+</div>
+</body>
+
+</html>
