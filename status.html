@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Discord Status</title>
+    <link href="/style.css" rel="stylesheet">
+    <style>body{height: 95vh;}img{margin-right: 5px;height: 135px;}a{color: white}a:visited {color: white}</style>
+  </head>
+  <body>
+    <div class="container">
+     <h1>Discord Status</h1>
+     <p>This is powered by <a href="https://github.com/phineas/lanyard">Lanyard</a></p>
+     <hr>
+     <h2>Status</h2>
+     <p id="status"></p>
+     <p id="device"></p>
+     <a id="coverlink"><img align="right" id="cover"></a>
+     <h2><i class="fab fa-spotify"></i> Listening to</h2>
+     <p id="track"></p>
+     <p id="album" title="Album"></p>
+    </div>
+    <script>
+    async function get () { 
+    const userid = '1045917091368271872';
+    const r = await fetch(`https://api.lanyard.rest/v1/users/${userid}`);
+    const data = await r.json();
+    if (!data.success || data.success == false) document.getElementById("status").innerHTML = "Error";
+    let status = '';
+    if (data.data.discord_status == "online") status = `<font color="#23a55a">Online</font>`;
+    if (data.data.discord_status == "idle") status = `<font color="#f0b232">Idle</font>`;
+    if (data.data.discord_status == "dnd") status = `<font color="#f23f42">Do Not Disturb</font>`;
+    if (data.data.discord_status == "offline") status = `Offline`;
+    document.getElementById("status").innerHTML = `${status}`;
+    document.getElementById("device").innerHTML = `<i class="fas fa-desktop"></i> On desktop: ${data.data.active_on_discord_desktop}<br><i class="fas fa-mobile"></i> On mobile: ${data.data.active_on_discord_mobile}`;
+    if (data.data.listening_to_spotify == true) {
+      document.getElementById("track").innerHTML = `<i class="fas fa-play-circle"></i> <a href="https://open.spotify.com/track/${data.data.spotify.track_id}">"${data.data.spotify.song}"</a> by <strong>${data.data.spotify.artist}</strong>`;
+      document.getElementById("coverlink").href = `https://open.spotify.com/track/${data.data.spotify.track_id}`;
+      document.getElementById("album").innerHTML = `<i class="fas fa-record-vinyl"></i> ${data.data.spotify.album}`;
+      document.getElementById("cover").src = `${data.data.spotify.album_art_url}`;
+    }
+    else if (!data.data.listening_to_spotify) { document.getElementById("title").innerHTML = 'Nothing playing'; document.getElementById("cover").remove(); }
+    
+    }
+    get();
+    setInterval(get, 15000);
+    </script>
+  </body>
+</html>
